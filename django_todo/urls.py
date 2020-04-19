@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from todo.views import get_todo_list
+from todo.views import get_todo_list, create_an_item, edit_an_item, delete_an_item, toggle_status
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',get_todo_list)
+    url(r'^$', get_todo_list),
+    url('^add$', create_an_item),
+    # a regular expression that will allow any value passed In here
+    # \d = digit,+ = multidigts, ?p = to tell this will be an expersion, <id> is the ref of the value that we pass Into the veiw function
+    url(r'^edit/(?P<id>\d+)$', edit_an_item),
+    url(r'^toggle/(?P<id>\d+)$', toggle_status),
+    url(r'^delete/(?P<id>\d+)$', delete_an_item)
 ]
